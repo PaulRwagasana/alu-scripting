@@ -22,4 +22,3 @@ def top_ten(subreddit):
             )
     else:
         print("OK", end="", flush=True)
-
