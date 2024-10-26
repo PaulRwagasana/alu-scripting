@@ -8,7 +8,7 @@ def top_ten(subreddit):
     """Main function"""
     URL = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
 
-    headers = {'User-Agent': 'MyAPI/0.0.1'}
+    HEADERS = {"User-Agent": "MyAPI/0.0.1"}
     try:
         RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
         HOT_POSTS = RESPONSE.json().get("data").get("children")
