@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 """Prints the title of the first 10 hot posts listed for a given subreddit"""
-
 import requests
-
-
 def top_ten(subreddit):
     """Main function"""
     URL = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
