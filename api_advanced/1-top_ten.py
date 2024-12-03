@@ -3,15 +3,27 @@
 
 import requests
 
-
 def top_ten(subreddit):
-    """Main function"""
-    URL = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    """Fetches and prints the titles of the first 10 hot posts from a subreddit."""
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    headers = {"User-Agent": "PythonRedditClient/1.0 (by /u/yourusername)"}
 
-    HEADERS = {"User-Agent": "PostmanRuntime/7.35.0"}
     try:
-        RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
-        HOT_POSTS = RESPONSE.json().get("data").get("children")
-        [print(post.get('data').get('title')) for post in HOT_POSTS]
-    except Exception:
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        
+        if response.status_code == 200:
+            data = response.json().get("data")
+            
+            if data and "children" in data:
+                hot_posts = data["children"]
+                if hot_posts:
+                    for post in hot_posts:
+                        print(post["data"]["title"])
+                    return
+            # Handle empty or malformed data
+        print(None)
+    
+    except requests.exceptions.RequestException as e:
+        # Print exception details for debugging if needed
+        print(f"Request failed: {e}")
         print(None)
